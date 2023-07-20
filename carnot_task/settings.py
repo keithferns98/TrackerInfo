@@ -81,17 +81,24 @@ WSGI_APPLICATION = "carnot_task.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "carnot_data",
-        "USER": "postgres",
-        "PASSWORD": "admin",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": "railway",  # cornat for local railway is for railwayapp server
+        "USER": "postgres",  # same
+        "PASSWORD": "uYNvRfgcpUnYhoGMOEyq",  # for local it is admin but for railway app it is this.
+        "HOST": "containers-us-west-65.railway.app",  # for local it is localhost
+        "PORT": "5509",  # for local it is 5432 and railwayapp server 5509
     }
 }
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        # "LOCATION": "redis://127.0.0.1:6379/1",
+        "CONFIG": {
+            "hosts": [
+                (
+                    "redis://default:Zl7OE4Zqrusy0I6YUvLT@containers-us-west-113.railway.app:7674"
+                )
+            ]
+        },
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # "SOCKET_CONNECT_TIMEOUT": 5,
