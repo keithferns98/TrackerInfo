@@ -95,14 +95,14 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        # "LOCATION": "redis://127.0.0.1:6379/1",
-        "CONFIG": {
-            "hosts": [
-                (
-                    "redis://default:Zl7OE4Zqrusy0I6YUvLT@containers-us-west-113.railway.app:7674"
-                )
-            ]
-        },
+        "LOCATION": "redis://default:Zl7OE4Zqrusy0I6YUvLT@containers-us-west-113.railway.app:7674",
+        # "CONFIG": {
+        #     "hosts": [
+        #         (
+        #             "redis://default:Zl7OE4Zqrusy0I6YUvLT@containers-us-west-113.railway.app:7674"
+        #         )
+        #     ]
+        # },
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             # "SOCKET_CONNECT_TIMEOUT": 5,
