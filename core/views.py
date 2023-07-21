@@ -25,7 +25,7 @@ class VehicleLatestInformationAPI(APIView):
         ]
     )
     def get(self, request):
-        geolocator = Nominatim(user_agent="geoapiExercises", scheme="http")
+        geolocator = Nominatim(user_agent="meauserments", scheme="http")
         # geolocator = Photon(user_agent="measurements")
         param1 = request.GET.get("device_id")
         device_data = cache.get(str(param1))
