@@ -29,7 +29,9 @@ class Command(BaseCommand):
                 progress_bar = tqdm(
                     total=len(sorted_data), desc="Ingesting postgres data", unit="item"
                 )
-                for curr_data in sorted_data:
+                for idx, curr_data in enumerate(sorted_data):
+                    if idx == 100:
+                        break
                     device_id, lat, long, ts, sts, speed = curr_data
                     vehicle = VehicleLocation()
                     vehicle.device_id = int(device_id)
@@ -41,6 +43,7 @@ class Command(BaseCommand):
                     vehicle.save()
                     progress_bar.update(1)
                 progress_bar.close()
+
             # store it in redis(cache) for faster retrieval
             unique_device_ids = VehicleLocation.objects.values_list(
                 "device_id", flat=True
@@ -61,7 +64,7 @@ class Command(BaseCommand):
                     latest_data.append(result)
                 print(latest_data)
                 print("latest_data")
-                cache.set(str(curr_id), latest_data, timeout=3600)
+                cache.set(str(curr_id), latest_data)
                 print("after set")
                 print(cache.get(str(curr_id)))
                 progress_bar_redis.update(1)
