@@ -64,7 +64,6 @@ class VehicleLatestInformationAPI(APIView):
                 + ","
                 + str(results["destination_cords"][1]),
                 timeout=10,
-                exactly_one=False,
             ).raw
             results["location"] = {
                 "region": addr["address"]["county"],
