@@ -30,8 +30,6 @@ class Command(BaseCommand):
                     total=len(sorted_data), desc="Ingesting postgres data", unit="item"
                 )
                 for idx, curr_data in enumerate(sorted_data):
-                    if idx == 100:
-                        break
                     device_id, lat, long, ts, sts, speed = curr_data
                     vehicle = VehicleLocation()
                     vehicle.device_id = int(device_id)
