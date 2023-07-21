@@ -9,6 +9,7 @@ from dateutil.parser import isoparse
 from core.utils import filter_isodatetime_from_dict
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from geopy.geocoders import Photon
 
 
 class VehicleLatestInformationAPI(APIView):
@@ -24,7 +25,8 @@ class VehicleLatestInformationAPI(APIView):
         ]
     )
     def get(self, request):
-        geolocator = Nominatim(user_agent="geoapiExercises")
+        geolocator = Nominatim(user_agent="geoapiExercises", scheme="http")
+        # geolocator = Photon(user_agent="measurements")
         param1 = request.GET.get("device_id")
         device_data = cache.get(str(param1))
         if device_data is None:
@@ -43,6 +45,7 @@ class VehicleLatestInformationAPI(APIView):
             hits = []
             source_cords, destination_cords = None, None
             data_len = len(device_data)
+            print(device_data)
             for idx, curr in enumerate(device_data):
                 if idx == 0:
                     destination_cords = (curr["lat"], curr["long"])
@@ -52,12 +55,14 @@ class VehicleLatestInformationAPI(APIView):
                     results["source_cords"] = source_cords
                 hits.append(curr)
             distance = geodesic(source_cords, destination_cords)
+            print(distance)
             results["distance_covered"] = "{:.0f}km".format(distance.km)
-            print(type(results["destination_cords"]))
+            # print(type(results["destination_cords"]))
+            print(results)
             addr = geolocator.reverse(
                 str(results["destination_cords"][0])
                 + ","
-                + str(results["destination_cords"][1])
+                + str(results["destination_cords"][1]),
             ).raw
             results["location"] = {
                 "region": addr["address"]["county"],
