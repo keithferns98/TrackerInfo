@@ -30,16 +30,7 @@ class VehicleLatestInformationAPI(APIView):
         param1 = request.GET.get("device_id")
         device_data = cache.get(str(param1))
         if device_data is None:
-            top_latest = VehicleLocation.objects.filter(device_id=param1).order_by(
-                "-sts"
-            )[:10]
-            exclude_keys = ["_state", "id"]
-            latest_data = []
-            for curr_redis_data in top_latest:
-                d = curr_redis_data.__dict__
-                result = {k: d[k] for k in set(list(d.keys())) - set(exclude_keys)}
-                latest_data.append(result)
-            cache.set(str(param1), latest_data, timeout=3600)
+            return Response({"Error": f"This device_id-{param1} does not exists."})
         else:
             results = {}
             hits = []
@@ -105,7 +96,6 @@ class VehicleInformationTSAPI(APIView):
             start_dt = isoparse(start_dt)
             end_dt = isoparse(end_dt)
             filtered_data = filter_isodatetime_from_dict(device_data, start_dt, end_dt)
-            # start_dt=2021-10-23T14:29:03.028049Z end_dt=2021-10-23T14:29:36.526919Z
             return Response(filtered_data)
         else:
             device_data = cache.get(str(device_id))

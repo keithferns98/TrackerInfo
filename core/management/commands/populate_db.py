@@ -55,7 +55,7 @@ class Command(BaseCommand):
                 # top latest records sliced to [:100] if removed it will ingest all redis
                 top_latest = VehicleLocation.objects.filter(device_id=curr_id).order_by(
                     "-sts"
-                )[:100]
+                )
                 exclude_keys = ["_state", "id"]
                 latest_data = []
                 for curr_redis_data in top_latest:

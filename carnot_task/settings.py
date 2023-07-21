@@ -98,17 +98,8 @@ CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://default:Zl7OE4Zqrusy0I6YUvLT@containers-us-west-113.railway.app:7674",
-        # "CONFIG": {
-        #     "hosts": [
-        #         (
-        #             "redis://default:Zl7OE4Zqrusy0I6YUvLT@containers-us-west-113.railway.app:7674"
-        #         )
-        #     ]
-        # },
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            # "SOCKET_CONNECT_TIMEOUT": 5,
-            # "SOCKET_TIMEOUT": 5,
         },
         "TIMEOUT": 2592000,
     }
