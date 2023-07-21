@@ -110,6 +110,7 @@ CACHES = {
             # "SOCKET_CONNECT_TIMEOUT": 5,
             # "SOCKET_TIMEOUT": 5,
         },
+        "TIMEOUT": 2592000,
     }
 }
 

@@ -45,7 +45,6 @@ class VehicleLatestInformationAPI(APIView):
             hits = []
             source_cords, destination_cords = None, None
             data_len = len(device_data)
-            print(device_data)
             for idx, curr in enumerate(device_data):
                 if idx == 0:
                     destination_cords = (curr["lat"], curr["long"])
@@ -55,10 +54,7 @@ class VehicleLatestInformationAPI(APIView):
                     results["source_cords"] = source_cords
                 hits.append(curr)
             distance = geodesic(source_cords, destination_cords)
-            print(distance)
             results["distance_covered"] = "{:.0f}km".format(distance.km)
-            # print(type(results["destination_cords"]))
-            print(results)
             addr = geolocator.reverse(
                 str(results["destination_cords"][0])
                 + ","
