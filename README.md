@@ -1,4 +1,5 @@
 ## TrackerInfo
+Note This is already hosted on a serverless so directly hit the endpoints for output.
 1. python manage.py populate_db (which populates the db given  data)
 2. Urls
     1. https://trackerinfo-production.up.railway.app/swagger/ represents the docs for the endpoints.
